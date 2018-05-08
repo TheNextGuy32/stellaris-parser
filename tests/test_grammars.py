@@ -7,47 +7,57 @@ import sys
 
 from lark import Lark
 
-GAME_FILE_DIR_FROM_HERE = '../game-files/'
-
 logging.basicConfig(level=logging.INFO)
 
 __path__ = os.path.abspath(__file__)
-
-game_file_path = os.path.join(__path__, GAME_FILE_DIR_FROM_HERE)
 
 def file_to_text(path):
     with open(path, 'r') as f:
         return f.read() + '\n'
 
-version_dirs = [ os.path.join(game_file_path, subdir) for subdir in os.listdir(game_file_path) ]
-
 def get_all_dir_versions(folder):
     return [ os.path.join(d, folder) for d in version_dirs ]
 
-class TestEventsLarkGrammars(unittest.TestCase):
+class TestValidGrammars(unittest.TestCase):
 
-    def test_no_grammar_syntax_error(self):
-        grammar = os.join(__path__, '../grammars/lark/events.lark')
+    def test_events_valid_lalr_grammar(self):
+        grammar = os.path.join(__path__, GRAMMAR_PATH)
         try:
             with open(grammar, 'r') as f:
                 Lark(f.read(), parser='lalr')
         except:
-            self.fail("Forming grammar raised exception.")
+            self.fail("Events grammar is not a valid Lalr(1) grammar")
 
-    def test_no_error_with_grammars_all_versions(self):
-        ver_dirs = get_all_dir_versions('events/')
+    def test_events_valid_earley_grammar(self):
+        grammar = os.join(__path__, GRAMMAR_PATH)
+        try:
+            with open(grammar, 'r') as f:
+                Lark(f.read(), parser='earley')
+        except:
+            self.fail("Events grammar is not a valid Earley grammar")
 
-        grammar_file = os.join(__path__, '../grammars/lark/events.lark')
+
+class TestEventsLarkGrammars(unittest.TestCase):
+
+    LARK_GRAMMAR_PATH = '../grammars/lark/events.lark'
+    GAME_FILE_DIR_FROM_HERE = '../game-files/'
+
+    def setUp(self):
+        self.grammar_files_path = os.path.join(__path__, LARK_GRAMMAR_PATH)
+        self.game_files_path = os.path.join(__path__, GAME_FILE_DIR_FROM_HERE)
+        self.game_version_dirs = [ os.path.join(self.game_files_path, subdir) for subdir in os.listdir(game_files_path) ]
+
+    def test_lalr_parses_all_events(self):
 
         grammar_text = ""
-        with open(grammar_file, 'r') as f:
+        with open(self.grammar_files_path, 'r') as f:
             grammar_text = f.read()
-        grammar_text = [ text + "\n" for text in grammar_text ]
+        grammar_text += "\n"
 
         event_parser = Lark(grammar_text, parser='lalr')
 
-        for this_ver_dir in ver_dirs:
-            test_files = [ os.join(this_ver_dir, event) for event in os.listdir(this_ver_dir) ]
+        for ver_dir in self.game_version_dirs:
+            test_files = [ os.join(ver_dir, event) for event in os.listdir(ver_dir) ]
             for file_name in test_files:
                 try:
                     data_text = ""

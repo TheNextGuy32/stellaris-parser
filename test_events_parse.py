@@ -14,5 +14,13 @@ file_names = os.listdir(test_dir)
 
 file_path = [ test_dir + file for file in file_names ]
 
-for file in file_path:
-    print(file)
+for file_name in file_path:
+    text = ""
+    with open(file_name) as file:
+        file_text = file.read()
+    text += "\n"
+    try:
+        event_parser.parse(text)
+        print("{} worked fine".format(file_name))
+    except:
+        print("{} threw exception".format(file_name))

@@ -1,0 +1,1 @@
+FOLDERS = ["common", "events", "localisation", "localisation_synced", "prescripted_countries"]

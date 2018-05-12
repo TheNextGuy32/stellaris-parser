@@ -9,12 +9,15 @@ python:
 cache:
   timeout: 300
   directories:
-  - game-files/2.0.1/
-  - game-files/2.0.4/
-script:
+  - game_files/2.0.1/
+install:
 - pip install -r requirements.txt
-- python -m tests
 env:
   global:
   - secure: f1TO18FMvHGMFUZxOBgCMJCbYHj+iEYvyTCpzAUIoESeumCelWdlkpWCiWV5pvXJlnzgTA2xuMKtikSlwTtvMyv7q7w6sv7nRykMSk1SXg5gSHvdIq0doed1aKvsHvScFSWMF5EiSK+FRFe0WQghFiKLLxe/llKpD57xfCj1rfLo4uVQJRRw+pLWSCvyGzkSZqjDfWdYDFQ+fS19iSNqMVAYq1Jd1bWat+Y5pHOibXJR7CamhrvXoCL2nIKf+0MaPohE+d+uF2SkWYGGYyW0Zh9WbPxK74GeJ/6yfXZ2oEllBYOdgze7+mDpOogQC3wKyWJ/c9O9wuT96qe74oeL4CHBEQouS6OJb9gJrvhI4zURDWEUXDTbyi0cQrYoAloWiu1uH6Q7DVNPUlvn8OYXnJDlJ46+s524KLzboznv+oJUnFRdTqNvfk+BiN0HPzH31cXNCXlXoLrvAqHgZTTbE2RcvlUQgBoujFXJl9QQsLhkHEQUJrt096491ogCWkVO2fnJUsmlDBOiUdl2GDpOgTgC4ySyvlwSNnVQKobrrFZo1lpT5MAhh3k3UFKLlVYtN6YDw66dWVGZG/Pbv/7mv/2U0orc6VMGDf1w5YOyf9O3KXRxBmiJOhvu4O4qFHMzvT+7UC7hfunR52wh5M6BU3/9oYdyUUoSg6jHQf1u/0c=
   - secure: t6Q0avgugPoczdegoOpHehI9d+p9vl2V0l1wuejnHNC/pdlyHbC+stp7olbTo8PRSLf0tpIZoAh8R1354bh15wpixV4PF671+YjzPaikWONGaq6W6klmDG9ADl8uNHrafbIKNmFxVyEfXrRtJz+W4LV3XemI8RoVJ8qyhTLA/wRv3xh7nVBkeaLKtBNBP0qVmeQbzee7dU9pIBB92Sfs8TFpIedlbDxpuDU+c4OjJBxLM7esQctKKaCLHskjtfwwUgAL8OKDoJLVIqsMnDqC5JjL9LKmKJ99ON/4glzlPE9qtAbJ2ZDoZYZ+QMU3tJ8L5r6cDRk5sMHFS1tUfxAiTD6jYawEYGo8k9U1LzwmE3oipZFegsU/dTDxD0QYPmGsio0xB1MC39BzIcmxgQqmwiaNJAQvMbjGg4bitvzW6mq9CVAW3hq1o94cB/EXr4RiEvmZ/urAvwXtlpB02Zk+dbIkfpAGv1iXeMBHL4AAr9rrNKmYw86xyXzJah/fFG5vR5LvnNW+aTFfYu6zd23E0XOplR12IzgGja5Obt5CY/zgt7KtyE1ZDJz3TuorJkysSYdXEzGD3Kd56znhlyCTLXihyfEXMRMXJT+LrDRfWyQD0Fg6UiruBoPyQ4mtil4hho4Opqa/1OA9Zi4WCOy6P6l71X2tYWVibDEjht+mgko=
+  matrix:
+  - TO_TEST=grammars
+  - TO_TEST=aws
+script:
+- python -m tests $TO_TEST

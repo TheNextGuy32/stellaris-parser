@@ -1,4 +1,5 @@
 game-files/
+game_files/
 .python-version
 .envrc
 *__pycache__

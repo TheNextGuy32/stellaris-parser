@@ -21,24 +21,26 @@ env:
   - "ALL_GAME_VERS=2.0.1,2.0.4"
   - "GAME_TEST_FOLDERS=common,events,localisation,localisation_synced,map,prescripted_countries"
   matrix:
-  - "TO_TEST=grammars   GAME_TEST_VERS=2.0.1           TEST_FOLDERS=events"
-  - "TO_TEST=grammars   GAME_TEST_VERS=$ALL_GAME_VERS  TEST_FOLDERS=events"
-  - "TO_TEST=grammars   GAME_TEST_VERS=2.0.1           TEST_FOLDERS=$GAME_TEST_FOLDERS"
-  - "TO_TEST=grammars   GAME_TEST_VERS=$ALL_GAME_VERS  TEST_FOLDERS=$GAME_TEST_FOLDERS"
-  - "TO_TEST=aws        GAME_TEST_VERS=2.0.1           TEST_FOLDERS=events"
-  - "TO_TEST=aws        GAME_TEST_VERS=$ALL_GAME_VERS  TEST_FOLDERS=events"
-  - "TO_TEST=aws        GAME_TEST_VERS=2.0.1           TEST_FOLDERS=$GAME_TEST_FOLDERS"
-  - "TO_TEST=aws        GAME_TEST_VERS=$ALL_GAME_VERS  TEST_FOLDERS=$GAME_TEST_FOLDERS"
+  # - "TO_TEST=grammars   GAME_TEST_VERS=2.0.1           TEST_FOLDERS=events"
+  # - "TO_TEST=grammars   GAME_TEST_VERS=$ALL_GAME_VERS  TEST_FOLDERS=events"
+  # - "TO_TEST=grammars   GAME_TEST_VERS=2.0.1           TEST_FOLDERS=$GAME_TEST_FOLDERS"
+  # - "TO_TEST=grammars   GAME_TEST_VERS=$ALL_GAME_VERS  TEST_FOLDERS=$GAME_TEST_FOLDERS"
+  # - "TO_TEST=aws        GAME_TEST_VERS=2.0.1           TEST_FOLDERS=events"
+  # - "TO_TEST=aws        GAME_TEST_VERS=$ALL_GAME_VERS  TEST_FOLDERS=events"
+  # - "TO_TEST=aws        GAME_TEST_VERS=2.0.1           TEST_FOLDERS=$GAME_TEST_FOLDERS"
+  # - "TO_TEST=aws        GAME_TEST_VERS=$ALL_GAME_VERS  TEST_FOLDERS=$GAME_TEST_FOLDERS"
 matrix:
   allow_failures:
-  - env: "TO_TEST=grammars    GAME_TEST_VERS=$ALL_GAME_VERS    TEST_FOLDERS=events"
-  - env: "TO_TEST=grammars    GAME_TEST_VERS=2.0.1             TEST_FOLDERS=$GAME_TEST_FOLDERS"
-  - env: "TO_TEST=grammars    GAME_TEST_VERS=$ALL_GAME_VERS    TEST_FOLDERS=$GAME_TEST_FOLDERS"
-  - env: "TO_TEST=aws         GAME_TEST_VERS=$ALL_GAME_VERS    TEST_FOLDERS=events"
-  - env: "TO_TEST=aws         GAME_TEST_VERS=2.0.1             TEST_FOLDERS=$GAME_TEST_FOLDERS"
-  - env: "TO_TEST=aws         GAME_TEST_VERS=$ALL_GAME_VERS    TEST_FOLDERS=$GAME_TEST_FOLDERS"
+  # - env: "TO_TEST=grammars    GAME_TEST_VERS=$ALL_GAME_VERS    TEST_FOLDERS=events"
+  # - env: "TO_TEST=grammars    GAME_TEST_VERS=2.0.1             TEST_FOLDERS=$GAME_TEST_FOLDERS"
+  # - env: "TO_TEST=grammars    GAME_TEST_VERS=$ALL_GAME_VERS    TEST_FOLDERS=$GAME_TEST_FOLDERS"
+  # - env: "TO_TEST=aws         GAME_TEST_VERS=$ALL_GAME_VERS    TEST_FOLDERS=events"
+  # - env: "TO_TEST=aws         GAME_TEST_VERS=2.0.1             TEST_FOLDERS=$GAME_TEST_FOLDERS"
+  # - env: "TO_TEST=aws         GAME_TEST_VERS=$ALL_GAME_VERS    TEST_FOLDERS=$GAME_TEST_FOLDERS"
   - python: '3.7-dev'
   - python: '3.8-dev'
+  - python: pypy
+  - python: pypy3
 
 script:
 - python -m tests $TO_TEST

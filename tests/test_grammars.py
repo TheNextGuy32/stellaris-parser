@@ -100,3 +100,7 @@ class TestEventsLarkGrammars(unittest.TestCase):
                     event_parser.parse(data_text)
                 except:
                     self.fail("Events grammar did not work on {}".format(file_name))
+
+
+if __name__ == '__main__':
+    unittest.main()

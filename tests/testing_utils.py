@@ -7,4 +7,7 @@ def split_env_to_frozenset(var):
     return var_set
 
 def is_pull_request():
-    return bool(os.getenv("TRAVIS_PULL_REQUEST"))
+    try:
+        return bool(os.getenv("TRAVIS_PULL_REQUEST"))
+    except:
+        return False

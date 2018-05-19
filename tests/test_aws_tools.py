@@ -29,13 +29,18 @@ class TestAwsToolsCommon(unittest.TestCase):
         for ver in TESTING_VERS:
             self.assertTrue(ver in versions, "Version {} not found in `aws_tools.common.versions`".format(ver))
 
-class TestAwsToolsUpload(unittest.TestCase):
+# class TestAwsToolsUpload(unittest.TestCase):
 
-    def test_folder_uploads_with_none(self):
+#     def test_folder_uploads_with_none(self):
 
 
 
 class TestAwsToolsDownload(unittest.TestCase):
+
+
+    @unittest.skipIf(not IS_PR, "pull request doesn't have access to secret environment variables")
+    def test_download_game_data_if_aws(self):
+
 
 
 

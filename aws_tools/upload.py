@@ -18,6 +18,8 @@ def main():
         s3 = session.resource('s3')
         bucket = s3.Bucket(bucket_name)
 
+        print("Setup S3 Bucket {}".format(bucket_name))
+
         return session, s3, bucket
 
     def get_args():
@@ -39,11 +41,17 @@ def main():
     else:
         session, s3, bucket = None, None, None
 
+    bucket_root = os.path.join(destination, os.path.basename(local_directory))
+
     for root, dirs, files in os.walk(local_directory):
         if os.path.basename(root) in versions:
             remove_unwanted(dirs)
 
-        print(root, dirs, files)
+        for f in files:
+            path = os.path.join(root, f)
+            upload_to = os.path.normpath(os.path.join(os.path.join(bucket_root, root), f))
+            bucket.upload_file(path, upload_to)
+            print("{} uploaded to {}".format(path, "s3://{}/{}".format(bucket_name, upload_to)))
 
 
 main()

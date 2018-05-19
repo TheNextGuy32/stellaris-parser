@@ -11,7 +11,7 @@ python:
 cache:
   timeout: 300
   directories:
-  - game_files/2.0.1/
+  - game_files/
 install:
 - pip install -r requirements.txt
 env:
@@ -20,6 +20,7 @@ env:
   - secure: t6Q0avgugPoczdegoOpHehI9d+p9vl2V0l1wuejnHNC/pdlyHbC+stp7olbTo8PRSLf0tpIZoAh8R1354bh15wpixV4PF671+YjzPaikWONGaq6W6klmDG9ADl8uNHrafbIKNmFxVyEfXrRtJz+W4LV3XemI8RoVJ8qyhTLA/wRv3xh7nVBkeaLKtBNBP0qVmeQbzee7dU9pIBB92Sfs8TFpIedlbDxpuDU+c4OjJBxLM7esQctKKaCLHskjtfwwUgAL8OKDoJLVIqsMnDqC5JjL9LKmKJ99ON/4glzlPE9qtAbJ2ZDoZYZ+QMU3tJ8L5r6cDRk5sMHFS1tUfxAiTD6jYawEYGo8k9U1LzwmE3oipZFegsU/dTDxD0QYPmGsio0xB1MC39BzIcmxgQqmwiaNJAQvMbjGg4bitvzW6mq9CVAW3hq1o94cB/EXr4RiEvmZ/urAvwXtlpB02Zk+dbIkfpAGv1iXeMBHL4AAr9rrNKmYw86xyXzJah/fFG5vR5LvnNW+aTFfYu6zd23E0XOplR12IzgGja5Obt5CY/zgt7KtyE1ZDJz3TuorJkysSYdXEzGD3Kd56znhlyCTLXihyfEXMRMXJT+LrDRfWyQD0Fg6UiruBoPyQ4mtil4hho4Opqa/1OA9Zi4WCOy6P6l71X2tYWVibDEjht+mgko=
   - "ALL_GAME_VERS=2.0.1,2.0.4"
   - "GAME_TEST_FOLDERS=common,events,localisation,localisation_synced,map,prescripted_countries"
+  - "TO_TEST=grammars"
   matrix:
   # - "TO_TEST=grammars   GAME_TEST_VERS=2.0.1           TEST_FOLDERS=events"
   # - "TO_TEST=grammars   GAME_TEST_VERS=$ALL_GAME_VERS  TEST_FOLDERS=events"

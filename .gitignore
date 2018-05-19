@@ -3,3 +3,4 @@ game_files/
 .python-version
 .envrc
 *__pycache__
+out.txt

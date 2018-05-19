@@ -43,5 +43,12 @@ matrix:
   - python: pypy
   - python: pypy3
 
+branches:
+  only:
+  - master # The last version we're developing on.
+  - stable # The last stable version.
+  # I do development on the dev branch and I don't want it to build that.
+  # Should do pull requests to staging
+
 script:
 - python -m tests $TO_TEST

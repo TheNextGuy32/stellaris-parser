@@ -38,21 +38,16 @@ def main():
         if not os.path.exists(full_name):
             os.makedirs(full_name)
 
-
-
     local_directory, bucket_name = get_args()
     if bucket_name is not None:
         session, s3, bucket = setup_s3(bucket_name)
     else:
         session, s3, bucket = None, None, None
 
-    bucket_root = os.path.join(destination, os.path.basename(local_directory))
-
-
-    for key in my_bucket.objects.all():
-        create_folder_if_dne(key, local_directory)
-        my_bucket.download_file(key.key, os.path.normpath(os.path.join(local_directory, key.key)))
-        print("{} downloaded to {}".format("s3://{}/{}".format(bucket_name, upload_to)), os.normpath(os.path.join(local_directory, key.key)))
+    for key in bucket.objects.all():
+        create_folder_if_dne(key.key, local_directory)
+        bucket.download_file(key.key, os.path.normpath(os.path.join(local_directory, key.key)))
+        print("{} downloaded to {}".format("s3://{}/{}".format(bucket_name, key.key), os.path.normpath(os.path.join(local_directory, key.key))))
 
 
 main()

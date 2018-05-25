@@ -49,6 +49,7 @@ class TestAwsToolsUpload(unittest.TestCase):
         # Make sure it's the right file (we'll writ the timestamp to it)
         # Delete it from the dumping bucket then at the end in tearDown()
 
+    @unittest.skipIf(not IS_PR and IN_TRAVIS, "pull request doesn't have access to secret environment variables")
     def test_cached_files_upload(self):
         import subprocess
         # Upload cached `game_data/` fiels to a directory made for this test in the dumping bucket in a directory.

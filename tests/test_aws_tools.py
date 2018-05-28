@@ -61,6 +61,7 @@ class TestAwsToolsUpload(unittest.TestCase):
 
 class TestAwsToolsDownload(unittest.TestCase):
 
+    AWS_DOWNLOAD_SCRIPT = os.path.normpath(os.path.join(__path__, "../aws_tools/download.py"))
 
     @unittest.skipIf(not IS_PR and IN_TRAVIS, "pull request doesn't have access to secret environment variables")
     def test_download_game_data_if_aws(self):

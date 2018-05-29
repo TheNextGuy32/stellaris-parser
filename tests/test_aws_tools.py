@@ -34,7 +34,7 @@ class TestAwsToolsCommon(unittest.TestCase):
 
 class TestAwsToolsUpload(unittest.TestCase):
 
-    AWS_UPLOAD_SCRIPT = os.path.normpath(os.path.join(__path__, "../aws_tools/upload.py"))
+    AWS_UPLOAD_SCRIPT = os.path.normpath(os.path.join(__path__, "../stellaris_parser/aws_tools/upload.py"))
 
     def test_upload_script_exists(self):
         self.assertTrue(os.path.exists(AWS_UPLOAD_SCRIPT),
@@ -61,7 +61,7 @@ class TestAwsToolsUpload(unittest.TestCase):
 
 class TestAwsToolsDownload(unittest.TestCase):
 
-    AWS_DOWNLOAD_SCRIPT = os.path.normpath(os.path.join(__path__, "../aws_tools/download.py"))
+    AWS_DOWNLOAD_SCRIPT = os.path.normpath(os.path.join(__path__, "../stellaris_parser/aws_tools/download.py"))
 
     @unittest.skipIf(not IS_PR and IN_TRAVIS, "pull request doesn't have access to secret environment variables")
     def test_download_game_data_if_aws(self):

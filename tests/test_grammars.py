@@ -27,6 +27,9 @@ def get_all_dir_versions(folder):
 
 class TestValidGrammars(unittest.TestCase):
 
+    # Might try to make this in some sort of generic
+    GRAMMAR_PATH = '../stellaris_parser/grammars/lark/'
+
     def test_events_valid_lalr_grammar(self):
         grammar = os.path.join(__path__, GRAMMAR_PATH)
         try:
@@ -46,7 +49,7 @@ class TestValidGrammars(unittest.TestCase):
 
 class TestEventsLarkGrammars(unittest.TestCase):
 
-    LARK_GRAMMAR_PATH = '../grammars/lark/events.lark'
+    LARK_GRAMMAR_PATH = '../stellaris_parser/grammars/lark/events.lark'
     GAME_FILE_DIR_FROM_HERE = '../game-files/'
 
     def setUp(self):
@@ -54,19 +57,24 @@ class TestEventsLarkGrammars(unittest.TestCase):
         self.game_files_path = os.path.join(__path__, GAME_FILE_DIR_FROM_HERE)
         self.game_version_dirs = [ os.path.join(self.game_files_path, subdir) for subdir in TESTING_VERS ]
 
+        # If we have access to secret ENVs, feel free to download the game files from S3.
         if not IS_PR and IN_TRAVIS:
             from aws_tools import download
             download.main("../game_files/", "stellaris-parser-travis-ci-alfa")
 
     def test_lalr_parses_all_events(self):
 
+        # Read in grammar text, but make default
         grammar_text = ""
         with open(self.grammar_files_path, 'r') as f:
             grammar_text = f.read()
+        # Must add \n at end in order to make sure it parses correctly
         grammar_text += "\n"
 
+        # Create parser using grammar text
         event_parser = Lark(grammar_text, parser='lalr')
 
+        # Go through all the game versions.
         for ver_dir in self.game_version_dirs:
 
             events_dir = os.path.join(ver_dir, "events/")
@@ -84,13 +92,17 @@ class TestEventsLarkGrammars(unittest.TestCase):
 
     def test_earley_parses_all_events(self):
 
+        # Read in grammar text, but make default
         grammar_text = ""
         with open(self.grammar_files_path, 'r') as f:
             grammar_text = f.read()
+        # Must add \n at end in order to make sure it parses correctly
         grammar_text += "\n"
 
+        # Create parser using grammar text
         event_parser = Lark(grammar_text, parser='earley')
 
+        # Go through all the game versions.
         for ver_dir in self.game_version_dirs:
 
             events_dir = os.path.join(ver_dir, "events/")

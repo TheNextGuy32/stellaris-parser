@@ -11,11 +11,12 @@ logging.basicConfig(level=logging.INFO)
 
 __path__ = os.path.abspath(__file__)
 
-from testing_utils import split_env_to_frozenset, is_pull_request
+from testing_utils import split_env_to_frozenset, is_pull_request, is_ci
 
 TESTING_VERS = split_env_to_frozenset("GAME_TEST_VERS")
 TESTING_FOLDERS = split_env_to_frozenset("TEST_FOLDERS")
 IS_PR = is_pull_request()
+IN_TRAVIS = is_ci()
 
 def file_to_text(path):
     with open(path, 'r') as f:
@@ -52,6 +53,10 @@ class TestEventsLarkGrammars(unittest.TestCase):
         self.grammar_files_path = os.path.join(__path__, LARK_GRAMMAR_PATH)
         self.game_files_path = os.path.join(__path__, GAME_FILE_DIR_FROM_HERE)
         self.game_version_dirs = [ os.path.join(self.game_files_path, subdir) for subdir in TESTING_VERS ]
+
+        if not IS_PR and IN_TRAVIS:
+            from aws_tools import download
+            download.main("../game_files/", "stellaris-parser-travis-ci-alfa")
 
     def test_lalr_parses_all_events(self):
 

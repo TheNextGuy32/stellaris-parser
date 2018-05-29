@@ -15,8 +15,8 @@ def import_aws_tests():
 
 def import_grammars_tests():
     from .test_grammars import(
-            TestValidGrammars,
-            TestEventsLarkGrammars
+        TestValidGrammars,
+        TestEventsLarkGrammars
     )
 
 def main():

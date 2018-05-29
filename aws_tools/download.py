@@ -6,7 +6,7 @@ import boto3
 
 from common import folders, versions
 
-def main():
+def main(local_directory, bucket_name):
 
     def setup_s3(bucket_name):
         # Returns session, s3 and bucket
@@ -22,15 +22,6 @@ def main():
 
         return session, s3, bucket
 
-    def get_args():
-        local_directory = None
-        bucket_name = None
-        if len(sys.argv) == 3:
-            local_directory, bucket_name = sys.argv[1:3]
-        elif len(sys.argv) == 2:
-            local_directory = sys.argv[1]
-        return local_directory, bucket_name
-
     def create_folder_if_dne(key, root):
         directory = os.path.dirname(key)
         # No need to do recursive calls because of makedirs
@@ -38,7 +29,6 @@ def main():
         if not os.path.exists(full_name):
             os.makedirs(full_name)
 
-    local_directory, bucket_name = get_args()
     if bucket_name is not None:
         session, s3, bucket = setup_s3(bucket_name)
     else:
@@ -49,5 +39,5 @@ def main():
         bucket.download_file(key.key, os.path.normpath(os.path.join(local_directory, key.key)))
         print("{} downloaded to {}".format("s3://{}/{}".format(bucket_name, key.key), os.path.normpath(os.path.join(local_directory, key.key))))
 
-
-main()
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])

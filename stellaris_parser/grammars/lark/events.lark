@@ -5,10 +5,11 @@
 ?definition: global_def
         |    bracketfull_def
         |    bracketless_def
+        |    values
 
 global_def: GLOBAL_NAME POSS_SYMB prim_value _NEWLINE
 
-bracketfull_def: name POSS_SYMB _NEWLINE* "{" _NEWLINE* definition+ _NEWLINE* "}" _NEWLINE -> def
+bracketfull_def: name POSS_SYMB _NEWLINE* "{" _NEWLINE* definition+ _NEWLINE* "}" _NEWLINE? -> def
 
 // The 0 or 1 should take care of multiple on same line.
 bracketless_def: name POSS_SYMB values _NEWLINE? -> def
@@ -47,6 +48,8 @@ GLOBAL_NAME: /\@[A-Za-z]+[A-Za-z0-9]*/
 
 MAGIC_VALUES:   "FROM"
         |       "ROOT"
+        |       "yes"
+        |       "no"
 LOGIC_WORDS:    "OR"
         |       "AND"
         |       "NOT"
@@ -67,5 +70,5 @@ NUMBER: _NUMBER
 %import common.ESCAPED_STRING   -> _STRING
 %import common.SIGNED_NUMBER    -> _NUMBER
 %import common.NEWLINE -> NL
-%import common.WS_INLINE -> WS
+%import common.WS
 %ignore WS

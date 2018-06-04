@@ -1,6 +1,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 import os
+import sys
 
 from lark import Lark
 
@@ -20,4 +21,4 @@ with open(file_path) as file:
 text += "\n"
 
 parsed = event_parser.parse(text)
-print("{} worked fine".format(file_name))
+print("{} worked fine".format(file_path))

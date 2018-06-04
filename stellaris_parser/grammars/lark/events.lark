@@ -19,16 +19,16 @@ bracketless_def: name POSS_SYMB values _NEWLINE? -> def
 // to be taken care of by bracketfull_def and start though
 
 // Values that can appear on the left hand side of non-global definitions
-?name:   VAR_STR
-    |   DOT_STR
-    |   LOGIC_WORDS
+?name:  LOGIC_WORDS
     |   MAGIC_VALUES
+    |   VAR_STR
+    |   DOT_STR
     |   NUMBER
 
-?values: DOT_STR
+?values: MAGIC_VALUES
+    |   DOT_STR
     |   VAR_STR
     |   GLOBAL_NAME
-    |   MAGIC_VALUES
     |   STRING
     |   NUMBER
 

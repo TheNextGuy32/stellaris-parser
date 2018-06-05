@@ -9,7 +9,7 @@
 
 global_def: GLOBAL_NAME POSS_SYMB prim_value _NEWLINE
 
-bracketfull_def: name POSS_SYMB _NEWLINE* "{" _NEWLINE* definition+ _NEWLINE* "}" _NEWLINE? -> def
+bracketfull_def: name POSS_SYMB _NEWLINE* "{" (_NEWLINE? definition+ _NEWLINE?)* "}" _NEWLINE? -> def
 
 // The 0 or 1 should take care of multiple on same line.
 bracketless_def: name POSS_SYMB values _NEWLINE? -> def
@@ -61,7 +61,7 @@ POSS_SYMB:  ">="
         |   ">"
         |   "<"
 
-COMMENT: /#[^\n]*/
+COMMENT: /[\t ]*#[^\n]*/
 _NEWLINE: ( NL | COMMENT )+
 
 STRING: _STRING

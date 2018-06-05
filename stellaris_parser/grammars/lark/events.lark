@@ -9,7 +9,7 @@
 
 global_def: GLOBAL_NAME POSS_SYMB prim_value _NEWLINE
 
-bracketfull_def: name POSS_SYMB _NEWLINE* "{" (_NEWLINE? definition+ _NEWLINE?)* "}" _NEWLINE? -> def
+bracketfull_def: name POSS_SYMB _NEWLINE* "{" (_NEWLINE? definition+ _NEWLINE?)* _NEWLINE* "}" _NEWLINE? -> def
 
 // The 0 or 1 should take care of multiple on same line.
 bracketless_def: name POSS_SYMB values _NEWLINE? -> def
@@ -23,11 +23,13 @@ bracketless_def: name POSS_SYMB values _NEWLINE? -> def
     |   MAGIC_VALUES
     |   VAR_STR
     |   DOT_STR
+    |   STRING
     |   NUMBER
 
 ?values: MAGIC_VALUES
     |   DOT_STR
     |   VAR_STR
+    |   AT_STR
     |   GLOBAL_NAME
     |   STRING
     |   NUMBER
@@ -42,6 +44,8 @@ DOT_STR: /([A-Za-z_]+[A-Za-z0-9_]*[\.\:])([A-Za-z_0-9]+[\.\:]?)+/
 
 // For strings that are not escaped by quotation marks
 VAR_STR: /[A-Za-z_]+[A-Za-z0-9_]*/
+
+AT_STR: /[A-Za-z_]+[A-Za-z0-9_]*\@([A-Za-z_]+[A-Za-z0-9_]*[\.\:])([A-Za-z_0-9]+[\.\:]?)+/
 
 // Includes the @ sign at the beginning
 GLOBAL_NAME: /\@[A-Za-z]+[A-Za-z0-9]*/
@@ -61,7 +65,7 @@ POSS_SYMB:  ">="
         |   ">"
         |   "<"
 
-COMMENT: /[\t ]*#[^\n]*/
+COMMENT: /[\t ]*#+[^\n]*/
 _NEWLINE: ( NL | COMMENT )+
 
 STRING: _STRING

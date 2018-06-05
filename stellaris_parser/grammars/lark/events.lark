@@ -29,7 +29,6 @@ bracketless_def: name POSS_SYMB values _NEWLINE? -> def
 ?values: MAGIC_VALUES
     |   DOT_STR
     |   VAR_STR
-    |   AT_STR
     |   GLOBAL_NAME
     |   STRING
     |   NUMBER
@@ -40,12 +39,10 @@ bracketless_def: name POSS_SYMB values _NEWLINE? -> def
 
 // For the "package name" type values seen in ID's and such.
 // Shouldn't count ones inside of quotation marks.
-DOT_STR: /([A-Za-z_]+[A-Za-z0-9_]*[\.\:])([A-Za-z_0-9]+[\.\:]?)+/
+DOT_STR: /([A-Za-z_]+[A-Za-z0-9_]*[\.\:\@])([A-Za-z_0-9]+[\.\:\@]?)+/
 
 // For strings that are not escaped by quotation marks
 VAR_STR: /[A-Za-z_]+[A-Za-z0-9_]*/
-
-AT_STR: /[A-Za-z_]+[A-Za-z0-9_]*\@([A-Za-z_]+[A-Za-z0-9_]*[\.\:])([A-Za-z_0-9]+[\.\:]?)+/
 
 // Includes the @ sign at the beginning
 GLOBAL_NAME: /\@[A-Za-z]+[A-Za-z0-9]*/
@@ -66,7 +63,8 @@ POSS_SYMB:  ">="
         |   "<"
 
 COMMENT: /[\t ]*#+[^\n]*/
-_NEWLINE: ( NL | COMMENT )+
+_BLANK_LINE: /[\t ]+\n/
+_NEWLINE: ( NL | COMMENT | _BLANK_LINE )+
 
 STRING: _STRING
 NUMBER: _NUMBER

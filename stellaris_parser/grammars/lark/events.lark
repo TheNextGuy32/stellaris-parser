@@ -9,10 +9,10 @@
 
 global_def: GLOBAL_NAME POSS_SYMB prim_value _NEWLINE
 
-bracketfull_def: name POSS_SYMB _NEWLINE* "{" (_NEWLINE? definition+ _NEWLINE?)* _NEWLINE* "}" _NEWLINE? -> def
+bracketfull_def: name POSS_SYMB _NEWLINE* "{" (_NEWLINE* definition+ _NEWLINE*)* _NEWLINE* "}" _NEWLINE? -> def
 
 // The 0 or 1 should take care of multiple on same line.
-bracketless_def: name POSS_SYMB values _NEWLINE? -> def
+bracketless_def: name POSS_SYMB _NEWLINE* values _NEWLINE? -> def
 //    |   name "=" values definition+
 // That last one was because sometimes you can find stuff like "id = story.5 days = 30"
 // I'm pretty sure removing the _NEWLINE from the end of bracketless_def though should allow it
@@ -39,10 +39,10 @@ bracketless_def: name POSS_SYMB values _NEWLINE? -> def
 
 // For the "package name" type values seen in ID's and such.
 // Shouldn't count ones inside of quotation marks.
-DOT_STR: /([A-Za-z_]+[A-Za-z0-9_]*[\.\:\@])([A-Za-z_0-9]+[\.\:\@]?)+/
+DOT_STR: /([A-Za-z_]+[A-Za-z0-9_\-]*[\.\:\@])([A-Za-z_0-9\-]+[\.\:\@]?)+/
 
 // For strings that are not escaped by quotation marks
-VAR_STR: /[A-Za-z_]+[A-Za-z0-9_]*/
+VAR_STR: /[A-Za-z_]+[A-Za-z0-9_\-]*/
 
 // Includes the @ sign at the beginning
 GLOBAL_NAME: /\@[A-Za-z]+[A-Za-z0-9]*/

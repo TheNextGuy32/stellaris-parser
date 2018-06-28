@@ -2,6 +2,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 import unittest
 import logging
+import sys
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

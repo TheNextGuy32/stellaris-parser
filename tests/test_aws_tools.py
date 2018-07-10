@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 
 __path__ = os.path.abspath(__file__)
 
-from testing_utils import split_env_to_frozenset, is_pull_request, is_ci
+from tests.testing_utils import split_env_to_frozenset, is_pull_request, is_ci
 
 TESTING_VERS = split_env_to_frozenset("GAME_TEST_VERS")
 TESTING_FOLDERS = split_env_to_frozenset("TEST_FOLDERS")
@@ -21,13 +21,13 @@ IN_TRAVIS = is_ci()
 class TestAwsToolsCommon(unittest.TestCase):
 
     def test_common_contains_wanted_folders(self):
-        from aws_tools.common import folders
+        from stellaris_parser.aws_tools.common import folders
         for folder in TESTING_FOLDERS:
             self.assertTrue(folder in folders,
                 "Folder {} not found in `aws_tools.common.folders`".format(folder))
 
     def test_common_contains_wanted_versions(self):
-        from aws_tools.common import versions
+        from stellaris_parser.aws_tools.common import versions
         for ver in TESTING_VERS:
             self.assertTrue(ver in versions,
                 "Version {} not found in `aws_tools.common.versions`".format(ver))
@@ -65,7 +65,7 @@ class TestAwsToolsDownload(unittest.TestCase):
 
     @unittest.skipIf(not IS_PR and IN_TRAVIS, "pull request doesn't have access to secret environment variables")
     def test_download_game_data_if_aws(self):
-        
+        pass
 
 
 

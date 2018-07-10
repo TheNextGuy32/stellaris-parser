@@ -2,5 +2,11 @@ import os
 
 import pytest
 
-def test_events(game_files_path):
-    this_dir = os.path.join(game_files_path, 'events')
+def test_subdirs_exist(game_files_path):
+    dirs = os.listdir(game_files_path)
+    assert "common" in dirs
+    assert "events" in dirs
+    assert "localisation" in dirs
+    assert "localisation_synced" in dirs
+    assert "map" in dirs
+    assert "prescripted_countries" in dirs

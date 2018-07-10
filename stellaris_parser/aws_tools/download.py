@@ -4,7 +4,7 @@ import os
 import sys
 import boto3
 
-from common import folders, versions
+from stellaris_parser.aws_tools.common import folders, versions
 
 # Credit: https://stackoverflow.com/a/33350380/1021259
 def download_dir(client, resource, dist, local='/tmp', bucket='your_bucket'):
@@ -19,29 +19,29 @@ def download_dir(client, resource, dist, local='/tmp', bucket='your_bucket'):
                      os.makedirs(os.path.dirname(local + os.sep + file.get('Key')))
                 resource.meta.client.download_file(bucket, file.get('Key'), local + os.sep + file.get('Key'))
 
-def main(local_directory, bucket_name):
+def setup_s3(bucket_name):
+    # Returns session, s3 and bucket
+    session = boto3.Session(
+        aws_access_key_id = os.getenv("AWS_ACCESS_KEY"),
+        aws_secret_access_key = os.getenv("AWS_SECRET_KEY"),
+        region_name="us-east-1")
 
-    def setup_s3(bucket_name):
-        # Returns session, s3 and bucket
-        session = boto3.Session(
-            aws_access_key_id = os.getenv("AWS_ACCESS_KEY"),
-            aws_secret_access_key = os.getenv("AWS_SECRET_KEY"),
-            region_name="us-east-1")
+    s3 = session.resource('s3')
+    bucket = s3.Bucket(bucket_name)
 
-        s3 = session.resource('s3')
-        bucket = s3.Bucket(bucket_name)
+    print("Setup S3 Bucket {}".format(bucket_name))
 
-        print("Setup S3 Bucket {}".format(bucket_name))
+    return session, s3, bucket
 
-        return session, s3, bucket
+def main(local_directory, bucket_name=None, remote='/'):
 
     if bucket_name is not None:
         session, s3, bucket = setup_s3(bucket_name)
     else:
-        session, s3, bucket = None, None, None
+        session, s3, bucket = setup_s3(os.getenv('BUCKET_NAME'))
 
     client = session.client('s3')
-    download_dir(client, s3, '/', local=local_directory, bucket=bucket_name)
+    download_dir(client, s3, remote, local=local_directory, bucket=bucket_name)
 
 
 if __name__ == "__main__":

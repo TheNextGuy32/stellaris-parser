@@ -22,8 +22,8 @@ def download_dir(client, resource, dist, local='/tmp', bucket='your_bucket'):
 def setup_s3(bucket_name):
     # Returns session, s3 and bucket
     session = boto3.Session(
-        aws_access_key_id = os.getenv("AWS_ACCESS_KEY"),
-        aws_secret_access_key = os.getenv("AWS_SECRET_KEY"),
+        aws_access_key_id = os.getenv("S3_ACCESS_KEY"),
+        aws_secret_access_key = os.getenv("S3_SECRET_KEY"),
         region_name="us-east-1")
 
     s3 = session.resource('s3')

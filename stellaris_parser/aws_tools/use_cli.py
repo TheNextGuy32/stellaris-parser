@@ -22,4 +22,4 @@ def aws_cli(*cmd):
         os.environ.update(old_env)
 
 def download(bucket, src, dest):
-    aws_cli('s3', 'sync', 's3://{}'.format(os.path.normpath("{}/{}").format(bucket, src)), dest, '--delete')
+    aws_cli(['s3', 'sync', 's3://{}'.format(os.path.normpath("{}/{}").format(bucket, src)), dest, '--delete'])

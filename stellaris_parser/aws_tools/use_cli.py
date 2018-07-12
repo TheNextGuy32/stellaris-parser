@@ -9,6 +9,8 @@ def aws_cli(*cmd):
         # Environment
         env = os.environ.copy()
         env['LC_CTYPE'] = u'en_US.UTF'
+        env['AWS_ACCESS_KEY'] = env['S3_ACCESS_KEY']
+        env['AWS_SECRET_KEY'] = env['S3_SECRET_KEY']
         os.environ.update(env)
 
         # Run awscli in the same process

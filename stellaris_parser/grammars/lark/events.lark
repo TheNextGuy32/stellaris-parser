@@ -67,7 +67,8 @@ _BLANK_LINE: /[\t ]+\n/
 _NEWLINE: ( NL | COMMENT | _BLANK_LINE )+
 
 STRING: _STRING
-NUMBER: _NUMBER
+// Do not match .9 as a number, it isn't used in stellaris and will match non deterministically match the .2 in galcom.2a.desc
+NUMBER: /[0-9]+(\.[0-9]+)*/
 
 %import common.ESCAPED_STRING   -> _STRING
 %import common.SIGNED_NUMBER    -> _NUMBER
